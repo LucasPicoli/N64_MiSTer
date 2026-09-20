@@ -9,6 +9,7 @@ SDRAM of any size is required.
 ## Features
 
   * Nintendo 64 cartridge support (`.z64`, `.n64`, `.v64`)
+  * NTSC, PAL and MPAL console regions
   * Standalone 64DD games and cartridge expansion disks (`.ndd`)
   * Cartridge and Disk saving
   * 64DD and Dobutsu no Mori/Animal Forest RTC
@@ -20,12 +21,13 @@ SDRAM of any size is required.
 
 ## BIOS
 
-Five ROMs are required: the Nintendo 64 PIF ROMs and Nintendo 64DD IPL ROMs. BIOS files are not included with the core.
+Six ROMs are required: the Nintendo 64 PIF ROMs and Nintendo 64DD IPL ROMs. BIOS files are not included with the core.
 
 Place the files in the N64 game directory:
 
     /media/fat/games/N64/boot.rom  => NTSC Nintendo 64 PIF ROM
     /media/fat/games/N64/boot1.rom => PAL Nintendo 64 PIF ROM
+    /media/fat/games/N64/boot2.rom => MPAL Nintendo 64 PIF ROM
     /media/fat/games/N64/boot3.rom => Japan Retail Nintendo 64DD IPL ROM
     /media/fat/games/N64/boot4.rom => DEV Nintendo 64DD IPL ROM
     /media/fat/games/N64/boot5.rom => US Retail Nintendo 64DD IPL ROM

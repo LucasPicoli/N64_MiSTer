@@ -25,7 +25,7 @@ entity n64top is
       errorCodesOn            : in  std_logic;
       fpscountOn              : in  std_logic;
       
-      ISPAL                   : in  std_logic;
+      REGION                  : in  std_logic_vector(1 downto 0);
       FIXEDBLANKS             : in  std_logic;
       CROPVERTICAL            : in  unsigned(1 downto 0);
       VI_BILINEAROFF          : in  std_logic;
@@ -70,7 +70,7 @@ entity n64top is
       state_loaded            : out std_logic;
       
       -- PIFROM download port
-      pifrom_wraddress        : in std_logic_vector(9 downto 0);
+      pifrom_wraddress        : in std_logic_vector(10 downto 0);
       pifrom_wrdata           : in std_logic_vector(31 downto 0);
       pifrom_wren             : in std_logic;
          
@@ -202,6 +202,11 @@ entity n64top is
 end entity;
 
 architecture arch of n64top is
+
+   constant REGION_NTSC : std_logic_vector(1 downto 0) := "00";
+   constant REGION_PAL  : std_logic_vector(1 downto 0) := "01";
+   constant REGION_MPAL : std_logic_vector(1 downto 0) := "10";
+   signal ISPAL         : std_logic;
    
    -- reset and clocks
    signal reset_intern_1x        : std_logic := '0';
@@ -542,7 +547,10 @@ architecture arch of n64top is
    signal cpu_export             : cpu_export_type;
 -- synthesis translate_on
    
-begin 
+begin
+
+   -- MPAL uses NTSC line geometry
+   ISPAL <= '1' when REGION = REGION_PAL else '0';
 
    -- clock index
    process (clk1x)
@@ -1215,7 +1223,7 @@ begin
       hpsRTC               => hpsRTC,
 
       PIFCOMPARE           => PIFCOMPARE,
-      ISPAL                => ISPAL,
+      REGION               => REGION,
       CICTYPE              => CICTYPE,
       SAVETYPE             => SAVETYPE,
       
